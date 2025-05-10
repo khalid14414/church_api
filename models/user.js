@@ -9,16 +9,13 @@ const userSchema = new Schema({
         type:String,
         required:true,
         unique:true,
-        trim:true
     },
     password:{
-        type:String,
-        required:true,
-        trim:true
+        type:String
     },
     avatar:{
         type:String,
-        default:'https://res.cloudinary.com/dqj0xg3zv/image/upload/v1698230984/avatars/default-avatar_owkq5h.png'
+        default:null
     },
     googleId:{
         type:String,

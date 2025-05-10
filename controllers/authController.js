@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import {  userModel } from "../models/user.js"
+import { registerSchema,loginSchema } from "../validators/authValidator.js"
 import { generateOtp } from "../utils/tokenGenerate.js"
 export const registerUser = async (req,res)=>{
     try {
@@ -9,11 +10,14 @@ export const registerUser = async (req,res)=>{
             return res.status(400).json({error:error.details[0].message})
         }
         const user = await userModel.findOne({email:value.email})
+        console.log(user)
+        
         if(user){
             return res.status(400).json({error:'User already exists'})
         }
         const hashedPassword = await bcrypt.hash(value.password,10)
-        const newUser = new user({
+
+        const newUser = new userModel({
             name:value.name,
             email:value.email,
             password:hashedPassword,
@@ -32,7 +36,7 @@ export const loginUser = async (req,res)=>{
         if(error){
             return res.status(400).json({error:error.details[0].message})
         }
-        const user = await userModel.findOne({email:value.email})
+        const user = await userModel.findOne({email:value.email,isEmailVerified:true})
         if(!user){
             return res.status(400).json({error:'Invalid email or password'})
         }
