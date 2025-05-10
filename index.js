@@ -1,4 +1,6 @@
 import express from 'express'
+import passport from 'passport'
+import './config/passport.js'
 import cors from 'cors'
 
 import { dbConnection } from './config/db.js'
@@ -9,6 +11,7 @@ const app = express()
 // Define Middleware
 app.use(cors())
 app.use(express.json())
+app.use(passport.initialize())
 app.use(express.urlencoded({extended:true}))
 
 

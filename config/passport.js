@@ -1,6 +1,6 @@
 import passport from "passport";
-import {GoogleStrategy} from "passport-google-oauth20";
-import { userModel } from "../models/user";
+import GoogleStrategy from "passport-google-oauth20";
+import { userModel } from "../models/user.js";
 
 
 passport.serializeUser((user,done)=>{
@@ -20,7 +20,7 @@ passport.deserializeUser(async(id,done)=>{
 passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
     clietntSecret:process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:CALLBACK_URL,
+    callbackURL:process.env.CALLBACK_URL,
 }, async(accessToken,refreshToken,profile,done)=>{
     try {
        const  existingUSer =  await userModel.findOne({googleId:profile.id})
