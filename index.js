@@ -5,6 +5,7 @@ import cors from 'cors'
 
 import { dbConnection } from './config/db.js'
 import authRouter from './routers/authRouter.js'
+import userRouter from './routers/userRouter.js'
 
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended:true}))
 
 // Define Route
 app.use('/auth',authRouter)
+app.use('/user',userRouter)
 
 
 
