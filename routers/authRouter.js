@@ -20,7 +20,7 @@ authRouter.get('/google/callback',passport.authenticate('google',{failureRedirec
     })
 })
 
-authRouter.get('/logout',req.logout())
+// authRouter.get('/logout',req.logout())
 
 
 export default authRouter

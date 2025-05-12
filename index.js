@@ -1,5 +1,6 @@
 import express from 'express'
 import passport from 'passport'
+import ejs from 'ejs'
 import './config/passport.js'
 import cors from 'cors'
 import { dbConnection } from './config/db.js'
@@ -13,13 +14,18 @@ app.use(express.json())
 app.use(passport.initialize())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
-
+app.set('view engine','ejs')
+app.set('views','./views')
 
 
 
 // Define Route
 app.use('/auth',authRouter)
 app.use('/user',userRouter)
+
+app.get('/',(req,res)=>{
+    res.render('index')
+})
 
 
 
