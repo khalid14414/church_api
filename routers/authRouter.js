@@ -12,7 +12,7 @@ authRouter.post('/register', registerUser)
 
 authRouter.get('/google',passport.authenticate('google',{scope:['profile','email']}))
 
-authRouter.get('/google/callback',passport.authenticate('google',{failureRedirect:'/login'}), (req,res)=>{
+authRouter.get('/google/callback',passport.authenticate('google',{failureRedirect:'/login',session:false}), (req,res)=>{
     const token = jwt.sign({id:req.user._id},process.env.JWT_SECRET,{expiresIn:'1d'})
     res.status(200).json({
         message:'Login successful',
